@@ -1,0 +1,12 @@
+$theme-colors: (
+  "main-color": #E59494,
+  "secondary-color":#F9DDDD
+);
+@import url('https://fonts.googleapis.com/css2?family=Convergence&display=swap');
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: lightgray;
+    font-family: 'Convergence'
+}
+
