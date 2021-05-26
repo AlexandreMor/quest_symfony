@@ -19,6 +19,24 @@ class ProgramRepository extends ServiceEntityRepository
         parent::__construct($registry, Program::class);
     }
 
+   //         /**
+   //  * @return Program[] Returns an array of Program objects
+   //  */
+    
+    /*public function findByCat(array $categoryName)
+    {
+        return $this->createQueryBuilder('SELECT program.title,program.poster, category.name FROM program JOIN category_id ON category.id=program.category_id')
+            ->andWhere('category.name = :name')
+            ->setParameter('name', $categoryName)
+            ->join('category.id', 'category_id')
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    } */
+
+
     // /**
     //  * @return Program[] Returns an array of Program objects
     //  */

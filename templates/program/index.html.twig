@@ -1,21 +1,36 @@
+{% extends 'base.html.twig' %}
 
-<!doctype html>
 
-<html lang="en">
+{% block title %}All programs{% endblock %}
 
-	<head>
 
-		<meta charset="UTF-8">
+{% block body %}
 
-		<title>Wild Series</title>
+    <h1>Toutes les séries de la table program : </h1>
 
-	</head>
+    {% for program in programs %}
 
-	<body>
+        <div>
 
-		<h1>{{ website }}
-			index</h1>
+            <h2>{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</h2>
 
-	</body>
+            <p>{{ program.summary }}</p>
+            {# Lien vers la fiche de la série : #}
 
-</html>
+            <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+        </div>
+
+    {% else %}
+
+        Aucune série trouvée.
+
+    {% endfor %}
+
+
+    <a href="{{ path('app_index') }}">
+
+        Retour à l'accueil
+
+    </a>
+
+{% endblock %}

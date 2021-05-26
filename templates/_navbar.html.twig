@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-main-color">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="{{ path("app_index")}}">Wild Series</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,10 +10,10 @@
           <a class="nav-link active" aria-current="page" href="#">Wild Series</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Découvrir</a>
+          <a class="nav-link" href="{{ path("category_index")}}">Découvrir</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Mes séries</a>
+          <a class="nav-link" href="{{ path("program_index")}}">Mes séries</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Mes acteurs favoris</a>
