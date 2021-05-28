@@ -2,34 +2,49 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Série #{{ program.id }}{% endblock %}
+{% block title %}Série #{{ program.id }}
+{% endblock %}
 
 
 {% block body %}
 
 
-<div class="media">
+	<div class="media text-center">
 
-  <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
+		<img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
 
-  <div class="media-body">
+		<div class="media-body text-center">
 
-    <h1 class="mt-0">{{ program.title }}</h1>
+			<h1 class="mt-0">{{ program.title }}</h1>
 
-    <p>{{ program.summary }}</p>
+			<p>Synopsis :
+				{{ program.summary }}</p>
 
-    <p>Catégorie : {{ program.category.name }}</p>
+			<p>Country :
+				{{ program.country }}</p>
 
-  </div>
+			<p>Year :
+				{{ program.year }}</p>
 
-</div>
+			<p>Catégorie :
+				{{ program.category.name }}</p>
+			{% for season in seasons %}
+				<p>
+					<a href="{{ path('program_season_show', { programId: program.id, seasonId: season.id }) }}">Saison
+						{{season.number}}
+						({{season.year }})</a>
+				</p>
+			{% endfor %}
+		</div>
+
+	</div>
 
 
-<a href="{{ path('program_index') }}">
+	<a href="{{ path('program_index') }}">
 
-    Retour à la liste des programmes
+		Retour à la liste des programmes
 
-</a>
+	</a>
 
 
 {% endblock %}
