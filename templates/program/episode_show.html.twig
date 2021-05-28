@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+
+{% block body %}
+	<div class="text-center">
+		<h1>{{program.title}}</h1>
+		<h2>Season
+			{{season.number}}</h2>
+		<h3>Episode
+			{{episode.number}}
+			:
+			{{episode.title}}</h3>
+		<p>{{episode.synopsis}}</p>
+
+         <a href="{{ path('app_index') }}">
+
+        Retour à l'accueil
+
+    </a>
+{% endblock %}
