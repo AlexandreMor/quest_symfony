@@ -35,6 +35,24 @@
 						({{season.year }})</a>
 				</p>
 			{% endfor %}
+			<h3>
+				Acteurs :
+			</h3>
+
+			{% for actor in program.actors %}
+				<p>
+					<a href="{{ path("actor_show", { id: actor.id }) }}">{{ actor.firstname }}
+						{{ actor.lastname }}
+					</a>
+				</p>
+
+			{% else %}
+
+				<p>Aucun acteur pour cette série</p>
+
+			{% endfor %}
+
+
 		</div>
 
 	</div>
