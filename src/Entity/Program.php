@@ -6,9 +6,12 @@ use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProgramRepository::class)
+ * @UniqueEntity("title", message="ce titre existe déjà")
  */
 class Program
 {
@@ -21,21 +24,31 @@ class Program
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *     pattern="/plus belle la vie/",
+     *     match=false,
+     *     message="On parle de vraies séries ici !"
+     * )
+     * @Assert\NotBlank(message="ne me laisse pas tout vide")
+     * @Assert\Length(max="255", maxMessage="Le programme saisi {{ value }} est trop long, il ne devrait pas dépasser {{ limit }} caractères")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="ne me laisse pas tout vide")
      */
     private $summary;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max="255", maxMessage="Le lien saisi {{ value }} est trop long, il ne devrait pas dépasser {{ limit }} caractères")
      */
     private $poster;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="programs")
+     * @Assert\NotBlank(message="ne me laisse pas tout vide")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
@@ -47,11 +60,19 @@ class Program
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type="integer",
+     *     message="Vous devez saisir un nombre."
+     * )
+     * @Assert\NotBlank(message="ne me laisse pas tout vide")
+     * @Assert\Positive
      */
     private $year;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="ne me laisse pas tout vide")
+     * @Assert\Length(max="255", maxMessage="Le pays saisi {{ value }} est trop long, il ne devrait pas dépasser {{ limit }} caractères")
      */
     private $country;
 

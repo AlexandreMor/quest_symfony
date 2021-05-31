@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -21,15 +22,16 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="ne me laisse pas tout vide")
+     * @Assert\Length(max="100", maxMessage="La catégorie saisie {{ value }} est trop longue, elle ne devrait pas dépasser {{ limit }} caractères")
      */
     private $name;
 
-      /**
+    /**
 
      * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="category")
 
      */
-
     private $programs;
 
     public function __construct()
@@ -37,10 +39,9 @@ class Category
     {
 
         $this->programs = new ArrayCollection();
-
     }
 
-       /**
+    /**
 
      * @return Collection|Program[]
 
@@ -51,16 +52,15 @@ class Category
     {
 
         return $this->programs;
-
     }
 
-        /**
+    /**
 
-    * @param Program $program
+     * @param Program $program
 
-    * @return Category
+     * @return Category
 
-    */
+     */
 
     public function addProgram(Program $program): self
 
@@ -71,13 +71,11 @@ class Category
             $this->programs[] = $program;
 
             $program->setCategory($this);
-
         }
 
 
         return $this;
-
-  }
+    }
 
 
     /**
@@ -95,21 +93,18 @@ class Category
 
         if ($this->programs->contains($program)) {
 
-                  $this->programs->removeElement($program);
+            $this->programs->removeElement($program);
 
-                  // set the owning side to null (unless already changed)
+            // set the owning side to null (unless already changed)
 
-                  if ($program->getCategory() === $this) {
+            if ($program->getCategory() === $this) {
 
-                      $program->setCategory(null);
-
-                  }
-
-         }
+                $program->setCategory(null);
+            }
+        }
 
 
-         return $this;
-
+        return $this;
     }
 
     public function getId(): ?int
