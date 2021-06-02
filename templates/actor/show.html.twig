@@ -10,9 +10,12 @@
 			{{actor.firstname}}
 			{{actor.lastname}}
 			{% for program in actor.programs %}
-                <h3> Séries : </h3>
-				<p><a href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a>
+				<h3>
+					Séries :
+				</h3>
+				<p>
+					<a href="{{ path("program_show", { slug: program.slug }) }}">{{ program.title }}</a>
 				</p>
-            {% endfor %}
-				
-			{% endblock %}
+			{% endfor %}
+
+		{% endblock %}

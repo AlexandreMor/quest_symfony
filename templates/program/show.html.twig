@@ -30,7 +30,7 @@
 				{{ program.category.name }}</p>
 			{% for season in seasons %}
 				<p>
-					<a href="{{ path('program_season_show', { programId: program.id, seasonId: season.id }) }}">Saison
+					<a href="{{ path('program_season_show', { slug: program.slug, seasonId: season.id }) }}">Saison
 						{{season.number}}
 						({{season.year }})</a>
 				</p>

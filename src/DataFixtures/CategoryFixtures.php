@@ -28,7 +28,7 @@ class CategoryFixtures extends Fixture
 
 
     ];
-    
+
     public function load(ObjectManager $manager)
 
     {
@@ -41,11 +41,8 @@ class CategoryFixtures extends Fixture
             $manager->persist($category);
 
             $this->addReference('category_' . $key, $category);
-
         }
-    
+
         $manager->flush();
-
     }
-
 }

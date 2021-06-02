@@ -6,9 +6,16 @@ use App\Entity\Episode;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use App\Service\Slugify;
 
 class EpisodeFixtures extends Fixture implements DependentFixtureInterface
 {
+    private $input;
+
+    public function __construct(Slugify $input)
+    {
+        $this->input = $input;
+    }
     public const EPISODES = [
         ['title' => 'Episode 1', 'number' => 1, 'synopsis' => 'Une synopsis ici'],
         ['title' => 'Episode 2', 'number' => 2, 'synopsis' => 'Une synopsis ici'],
@@ -25,6 +32,8 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
             $episode = new Episode();
 
             $episode->setTitle($value['title']);
+
+            $episode->setSlug($this->input->generate($value['title']));
 
             $episode->setNumber($value['number']);
 

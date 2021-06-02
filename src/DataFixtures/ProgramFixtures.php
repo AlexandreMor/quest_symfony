@@ -12,10 +12,19 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 use Doctrine\Persistence\ObjectManager;
 
+use App\Service\Slugify;
+
+
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 
 {
+    private $input;
+
+    public function __construct(Slugify $input)
+    {
+        $this->input = $input;
+    }
     public const PROGRAMS = [
         ['title' => 'Fear the walking dead', 'summary' => 'un résumé de la série', 'poster' => 'Une image ici', 'year' => '2018', 'country' => 'USA'],
         ['title' => 'Urgences', 'summary' => 'un résumé de la série', 'poster' => 'Une image ici', 'year' => '2018', 'country' => 'USA'],
@@ -33,6 +42,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program = new Program();
 
             $program->setTitle($value['title']);
+
+            $program->setSlug($this->input->generate($value['title']));
 
             $program->setSummary($value['summary']);
 

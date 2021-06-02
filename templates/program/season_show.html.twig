@@ -19,10 +19,16 @@
 		<p>Catégorie :
 			{{ program.category.name }}</p>
 
-        <ul> Episodes :
-        {% for episode in episodes %}
-        <li><a href="{{ path('program_episode_show', { programId: program.id, seasonId: season.id, episodeId: episode.id }) }}">Episode {{episode.number}} : {{episode.title}}</a></li>
-        {% endfor %}
-        </ul>
+		<ul>
+			Episodes :
+			{% for episode in episodes %}
+				<li>
+					<a href="{{ path('program_episode_show', { slugProg: program.slug, seasonId: season.id, slugEp: episode.slug }) }}">Episode
+						{{episode.number}}
+						:
+						{{episode.title}}</a>
+				</li>
+			{% endfor %}
+		</ul>
 	</div>
 {% endblock %}
