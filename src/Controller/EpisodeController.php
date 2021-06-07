@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Slugify;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use App\Entity\Comment;
+use App\Form\CommentType;
 
 /**
  * @Route("/episode")
@@ -49,15 +51,15 @@ class EpisodeController extends AbstractController
 
             $email = (new Email())
 
-            ->from($this->getParameter('mailer_from'))
+                ->from($this->getParameter('mailer_from'))
 
-            ->to('98c13e05dd-9e6289@inbox.mailtrap.io')
+                ->to('98c13e05dd-9e6289@inbox.mailtrap.io')
 
-            ->subject('Une nouvel épisode vient d\'être publiée !')
+                ->subject('Une nouvel épisode vient d\'être publiée !')
 
-            ->html($this->renderView('episode/newEpisodeEmail.html.twig', ['episode' => $episode]));
+                ->html($this->renderView('episode/newEpisodeEmail.html.twig', ['episode' => $episode]));
 
-        $mailer->send($email);
+            $mailer->send($email);
 
             return $this->redirectToRoute('episode_index');
         }
@@ -71,10 +73,23 @@ class EpisodeController extends AbstractController
     /**
      * @Route("/{slug}", name="episode_show", methods={"GET"})
      */
-    public function show(Episode $episode): Response
+    public function show(Episode $episode, Request $request): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setAuthor($this->getUser());
+            $comment->setEpisode($episode);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+        }
+
         return $this->render('episode/show.html.twig', [
             'episode' => $episode,
+            'form' => $form->createView(),
         ]);
     }
 

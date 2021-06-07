@@ -13,10 +13,30 @@
 			:
 			{{episode.title}}</h3>
 		<p>{{episode.synopsis}}</p>
+		{% if app.user %}
+			<h3 class="mt-3">Add a comment</h3>
+			<div class="text-center mt-3">
+				{{ form_start(form) }}
 
-         <a href="{{ path('app_index') }}">
+				{{ form_widget(form) }}
 
-        Retour à l'accueil
+				<input type='submit' value='Add comment'>
 
-    </a>
-{% endblock %}
+				{{ form_end(form) }}
+			</div>
+		{% endif %}
+		<h3 class="mt-5">Comments</h3>
+		{% for comment in episode.comments | reverse %}
+
+			<h4 class"mt-3">Par
+				{{comment.author.username}}</h4>
+			<p>{{comment.comment}}</p>
+			<p>Rate :
+				{{comment.rate}}</p>
+		{% endfor %}
+		<a href="{{ path('app_index') }}">
+
+			Retour à l'accueil
+
+		</a>
+	{% endblock %}

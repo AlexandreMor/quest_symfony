@@ -27,6 +27,8 @@ use App\Form\ProgramType;
 use Symfony\Component\Mailer\MailerInterface;
 
 use Symfony\Component\Mime\Email;
+use App\Entity\Comment;
+use App\Form\CommentType;
 
 
 /**
@@ -216,14 +218,25 @@ class ProgramController extends AbstractController
      * @ParamConverter("season", class="App\Entity\Season", options={"mapping": {"seasonId": "id"}})
      * @ParamConverter("episode", class="App\Entity\Episode", options={"mapping": {"slugEp": "slug"}})
      */
-    public function showEpisode(Program $program, Season $season, Episode $episode)
+    public function showEpisode(Program $program, Season $season, Episode $episode, Request $request)
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setAuthor($this->getUser());
+            $comment->setEpisode($episode);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+        }
         return $this->render('program/episode_show.html.twig', [
 
             'program' => $program,
             'season' => $season,
-            'episode' => $episode
+            'episode' => $episode,
+            'form' => $form->CreateView()
 
         ]);
     }
