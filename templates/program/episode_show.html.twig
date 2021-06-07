@@ -33,7 +33,11 @@
 			<p>{{comment.comment}}</p>
 			<p>Rate :
 				{{comment.rate}}</p>
+			{% if is_granted("ROLE_CONTRIBUTOR") %}
+				{{ include('comment/_delete_form.html.twig') }}
+			{% endif %}
 		{% endfor %}
+
 		<a href="{{ path('app_index') }}">
 
 			Retour à l'accueil

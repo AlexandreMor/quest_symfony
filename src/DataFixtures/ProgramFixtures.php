@@ -53,6 +53,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
 
             $program->setCountry($value['country']);
 
+            $program->setOwner($this->getReference('admin'));
+
             $program->setCategory($this->getReference('category_0'));
 
             $this->addReference('program_' . $row, $program);
@@ -81,6 +83,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             ActorFixtures::class,
 
             CategoryFixtures::class,
+
+            UserFixtures::class,
 
         ];
     }

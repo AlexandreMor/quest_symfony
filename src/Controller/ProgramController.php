@@ -29,6 +29,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 /**
@@ -99,6 +100,8 @@ class ProgramController extends AbstractController
             $slug = $slugify->generate($program->getTitle());
 
             $program->setSlug($slug);
+
+            $program->setOwner($this->getUser());
 
             // Persist Program Object
 
@@ -173,6 +176,34 @@ class ProgramController extends AbstractController
     }
 
     /**
+     * @Route("/{slug}/edit", name="edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Program $program): Response
+    {
+        $form = $this->createForm(ProgramType::class, $program);
+        $form->handleRequest($request);
+
+        // Check wether the logged in user is the owner of the program
+
+        if (!($this->getUser() == $program->getOwner())) {
+
+            // If not the owner, throws a 403 Access Denied exception
+
+            throw new AccessDeniedException('Only the owner can edit the program!');
+        }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('program_index');
+        }
+
+        return $this->render('program/edit.html.twig', [
+            'program' => $program,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
 
      * Getting a program by id
 
@@ -239,5 +270,27 @@ class ProgramController extends AbstractController
             'form' => $form->CreateView()
 
         ]);
+    }
+
+    /**
+     * @Route("/{id}", name="delete", methods={"POST"})
+     */
+    public function delete(Request $request, Program $program): Response
+    {
+        // Check wether the logged in user is the owner of the program
+
+        if (!($this->getUser() == $program->getOwner())) {
+
+            // If not the owner, throws a 403 Access Denied exception
+
+            throw new AccessDeniedException('Only the owner can delete the program!');
+        }
+        if ($this->isCsrfTokenValid('delete' . $program->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($program);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('program_index');
     }
 }
