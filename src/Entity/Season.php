@@ -135,4 +135,9 @@ class Season
         return $this;
     }
 
+    public function getProgramNumber(): string
+    {
+        return $this->getProgram()->getTitle() . " - saison n° " . $this->getNumber();
+    }
+
 }
