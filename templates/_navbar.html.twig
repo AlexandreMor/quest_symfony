@@ -32,6 +32,11 @@
 					<li class="nav-item">{{ app.user.email }}</li>
 
 					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_profile') }}">
+							Profil</a>
+					</li>
+
+					<li class="nav-item">
 						<a class="nav-link" href="{{ path('app_logout') }}">
 							Se déconnecter</a>
 					</li>
@@ -41,6 +46,10 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{{ path('app_login') }}">
 							Se connecter</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_register') }}">
+							S'enregistrer</a>
 					</li>
 
 				{% endif %}
