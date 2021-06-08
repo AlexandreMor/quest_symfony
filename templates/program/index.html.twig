@@ -7,9 +7,17 @@
 
 {% block body %}
 
-	<h1>Toutes les séries de la table program :
-	</h1>
+	<h1>Toutes les séries</h1>
 
+	<div class="text-center">
+		{{ form_start(form) }}
+
+		{{ form_widget(form) }}
+
+		<button class="btn btn-main-color">Search</button>
+
+		{{ form_end(form) }}
+	</div>
 	{% for program in programs %}
 
 		<div class="text-center">

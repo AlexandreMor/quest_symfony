@@ -29,7 +29,9 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Form\SearchProgramFormType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use App\Repository\ProgramRepository;
 
 
 /**
@@ -45,7 +47,7 @@ class ProgramController extends AbstractController
      * @Route("/", name="index")
 
      */
-    public function index(): Response
+    public function index(Request $request, ProgramRepository $programRepository): Response
 
     {
         $programs = $this->getDoctrine()
@@ -53,6 +55,30 @@ class ProgramController extends AbstractController
             ->getRepository(Program::class)
 
             ->findAll();
+
+        $form = $this->createForm(SearchProgramFormType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $search = $form->getData()['search'];
+    
+            $programs = $programRepository->findLikeName($search);
+    
+        } else {
+    
+            $programs = $programRepository->findAll();
+    
+        }
+    
+        return $this->render('program/index.html.twig', [
+    
+            'programs' => $programs,
+    
+            'form' => $form->createView(),
+    
+        ]);
 
         return $this->render('/program/index.html.twig', [
 
