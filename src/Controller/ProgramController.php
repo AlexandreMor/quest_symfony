@@ -33,6 +33,7 @@ use App\Form\SearchProgramFormType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Repository\ProgramRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 /**
@@ -331,5 +332,20 @@ class ProgramController extends AbstractController
         }
 
         return $this->redirectToRoute('program_index');
+    }
+
+    /**
+     * @Route("/{id}/watchlist", name="watchlist", methods={"GET","POST"})
+     */
+    public function addToWatchList(Request $request, Program $program, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()->isInWatchlist($program) === true) {
+            $request = $this->getUser()->removeFromWatchlist($program);
+        } else {
+            $request = $this->getUser()->addToWatchlist($program);
+            $entityManager->persist($request);
+        }
+        $entityManager->flush();
+        return $this->redirectToRoute('program_show', ['slug' => $program->getSlug()]);
     }
 }
