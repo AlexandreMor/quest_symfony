@@ -10,6 +10,8 @@
 	<h1>Toutes les séries</h1>
 
 	<div class="text-center">
+		{{ app.session.get('total') }}
+		
 		{{ form_start(form) }}
 
 		{{ form_widget(form) }}

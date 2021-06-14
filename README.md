@@ -14,3 +14,4 @@ quest 20 : https://drive.google.com/file/d/1j3jI_f82hn2hKSu_2C87W30Gt-os_Qrw/vie
 quest 21 : https://drive.google.com/file/d/1094RQrXI95Tp0meCtRCJDe0L-3CSM_kW/view?usp=sharing
 quest 22 : https://drive.google.com/file/d/1uGm6KiN5EfhJpshyLVkvGEqN2LBihKNc/view?usp=sharing
 quest 23 : https://drive.google.com/file/d/1kunQ9QOU8dhmVuZAwKZWCzkfO9l1sfXE/view?usp=sharing
+quest 24 : https://drive.google.com/file/d/1somcy-BlL78H9uL2q6BbP1KTeW5bxUB8/view?usp=sharing

@@ -32,6 +32,7 @@ use App\Form\CommentType;
 use App\Form\SearchProgramFormType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Repository\ProgramRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 /**
@@ -47,7 +48,7 @@ class ProgramController extends AbstractController
      * @Route("/", name="index")
 
      */
-    public function index(Request $request, ProgramRepository $programRepository): Response
+    public function index(Request $request, ProgramRepository $programRepository, SessionInterface $session): Response
 
     {
         $programs = $this->getDoctrine()
@@ -63,27 +64,32 @@ class ProgramController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $search = $form->getData()['search'];
-    
+
             $programs = $programRepository->findLikeName($search);
-    
         } else {
-    
+
             $programs = $programRepository->findAll();
-    
+        } {
+
+            if (!$session->has('total')) {
+
+                $session->set('total', 0); // if total doesn’t exist in session, it is initialized.
+
+            }
+
+
+            $total = $session->get('total'); // get actual value in session with ‘total' key.
+
+            // ...
+
         }
-    
+
         return $this->render('program/index.html.twig', [
-    
+
             'programs' => $programs,
-    
+
             'form' => $form->createView(),
-    
-        ]);
 
-        return $this->render('/program/index.html.twig', [
-
-            'website' => 'Wild Séries',
-            'programs' => $programs
         ]);
     }
 
@@ -136,6 +142,10 @@ class ProgramController extends AbstractController
             // Flush the persisted object
 
             $entityManager->flush();
+
+            // Once the form is submitted, valid and the data inserted in database, you can define the success flash message
+
+            $this->addFlash('success', 'The new program has been created');
 
             // Envoi de mail
 
@@ -219,6 +229,8 @@ class ProgramController extends AbstractController
         }
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'The new program has been edited');
 
             return $this->redirectToRoute('program_index');
         }
@@ -315,6 +327,7 @@ class ProgramController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($program);
             $entityManager->flush();
+            $this->addFlash('danger', 'The new program has been deleted');
         }
 
         return $this->redirectToRoute('program_index');
