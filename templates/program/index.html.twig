@@ -7,7 +7,7 @@
 
 {% block body %}
 
-	<h1>Toutes les séries</h1>
+	<h1>{{ 'program.index'|trans }}</h1>
 
 	<div class="text-center">
 		{{ app.session.get('total') }}
@@ -16,7 +16,7 @@
 
 		{{ form_widget(form) }}
 
-		<button class="btn btn-main-color">Search</button>
+		<button class="btn btn-main-color">{{ 'search'|trans }}</button>
 
 		{{ form_end(form) }}
 	</div>
@@ -27,29 +27,29 @@
 			<h2>{{ loop.index }}
 				/
 				{{ program.title }}
-				- Catégorie :
+				- {{ 'category'|trans }} :
 				{{ program.category.name }}</h2>
 
 			<p>{{ program.summary }}</p>
 			{# Lien vers la fiche de la série : #}
 			{% if is_granted("ROLE_ADMIN") %}
 
-				<a class="btn border" href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>
+				<a class="btn border" href="{{ path('program_edit', { 'slug': program.slug} ) }}">{{ 'edit'|trans }}</a>
 
 			{% endif %}
-			<a href="{{ path("program_show", { slug: program.slug }) }}">Voir la fiche</a>
+			<a href="{{ path("program_show", { slug: program.slug }) }}">{{ 'show.program'|trans }}</a>
 		</div>
 
 	{% else %}
 
-		Aucune série trouvée.
+		{{ 'not.found'|trans }}
 
 	{% endfor %}
 
 
 	<a href="{{ path('app_index') }}">
 
-		Retour à l'accueil
+		{{ 'home'|trans }}
 
 	</a>
 

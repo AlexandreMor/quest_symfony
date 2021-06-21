@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Actor
+{% block title %}{{ 'actor'|trans }}
 {% endblock %}
 
 {% block body %}
 	<div class="text-center mt-3">
-		<h1>Actor</h1>
+		<h1>{{ 'actor'|trans }}</h1>
 		<h2>
 			{{actor.firstname}}
 			{{actor.lastname}}
 			{% for program in actor.programs %}
 				<h3>
-					Séries :
+					{{ 'programs'|trans }} :
 				</h3>
 				<p>
 					<a href="{{ path("program_show", { slug: program.slug }) }}">{{ program.title }}</a>

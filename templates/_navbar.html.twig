@@ -10,26 +10,29 @@
 					<a class="nav-link active" aria-current="page" href="#">Wild Series</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path("category_index")}}">Découvrir</a>
+					<a class="nav-link" href="{{ path("category_index")}}">{{ 'discover.categories'|trans }}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path("program_index")}}">Mes séries</a>
+					<a class="nav-link" href="{{ path("program_index")}}">{{ 'fav.programs'|trans }}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Mes acteurs favoris</a>
+					<a class="nav-link" href="#">{{ 'fav.actors'|trans }}</a>
 				</li>
 				<li class="nav-item">
 					|
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path("season_new")}}">Ajouter une saison</a>
+					<a class="nav-link" href="{{ path("season_new")}}">{{ 'add.season'|trans }}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path("episode_new")}}">Ajouter un épisode</a>
+					<a class="nav-link" href="{{ path("episode_new")}}">{{ 'add.episode'|trans }}</a>
 				</li>
 				{% if app.user %}
 
-					<li class="nav-item">{{ app.user.email }}</li>
+					<li class="nav-item">{% trans with {'%username%': app.user.email} %}
+						hello_username
+						{% endtrans %}
+						!</li>
 
 					<li class="nav-item">
 						<a class="nav-link" href="{{ path('app_profile') }}">
@@ -38,21 +41,26 @@
 
 					<li class="nav-item">
 						<a class="nav-link" href="{{ path('app_logout') }}">
-							Se déconnecter</a>
+							{{ 'account.logout'|trans }}</a>
 					</li>
 
 				{% else %}
 
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('app_login') }}">
-							Se connecter</a>
+						<a class="nav-link" href="{{ path('app_login' ) }}">
+							{{ 'account.login'|trans }}</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="{{ path('app_register') }}">
-							S'enregistrer</a>
+							{{ 'account.register'|trans }}</a>
 					</li>
-
 				{% endif %}
+				<li class="nav-item">
+					<a class="nav-link" href="/fr">FR</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/en">EN</a>
+				</li>
 			</ul>
 		</div>
 	</div>

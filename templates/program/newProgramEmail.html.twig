@@ -1,18 +1,18 @@
 {% extends 'layoutEmail.html.twig' %}
 
-{% block title %}New Program
+{% block title %}{{ 'program.new'|trans }}
 {% endblock %}
 
 {% block body %}
-	<h1>New program
+	<h1>{{ 'program.new'|trans }}
 		{{ program.title }}
-		created</h1>
+		{{ 'created'|trans }}</h1>
 
-	<p>Hello, the new program
+	<p>{{ 'program.new.hello'|trans }}
 		{{ program.title }}
-		has been created on Wild Series</p>
+		{{ 'created.program'|trans }}</p>
 
-	<p>Summary :
+	<p>{{ 'summary'|trans }} :
 		{{program.summary }}
 	</p>
 {% endblock %}

@@ -6,15 +6,15 @@
 {% block body %}
 	<div class="text-center">
 		<h1>{{program.title}}</h1>
-		<h2>Season
+		<h2>{{ 'season'|trans }}
 			{{season.number}}</h2>
-		<h3>Episode
+		<h3>{{ 'episode'|trans }}
 			{{episode.number}}
 			:
 			{{episode.title}}</h3>
 		<p>{{episode.synopsis}}</p>
 		{% if app.user %}
-			<h3 class="mt-3">Add a comment</h3>
+			<h3 class="mt-3">{{ 'add.comment'|trans }}</h3>
 			<div class="text-center mt-3">
 				{{ form_start(form) }}
 
@@ -25,7 +25,7 @@
 				{{ form_end(form) }}
 			</div>
 		{% endif %}
-		<h3 class="mt-5">Comments</h3>
+		<h3 class="mt-5">{{ 'comments'|trans }}</h3>
 		{% for comment in episode.comments | reverse %}
 
 			<h4 class"mt-3">Par
@@ -40,7 +40,7 @@
 
 		<a href="{{ path('app_index') }}">
 
-			Retour à l'accueil
+			{{ 'home'|trans }}
 
 		</a>
 	{% endblock %}

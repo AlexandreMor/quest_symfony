@@ -2,7 +2,7 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Série #{{ program.id }}
+{% block title %}{{ 'program'|trans }} #{{ program.id }}
 {% endblock %}
 
 
@@ -17,26 +17,26 @@
 
 			<h1 class="mt-0">{{ program.title }}</h1>
 
-			<p>Synopsis :
+			<p>{{ 'synopsis'|trans }} :
 				{{ program.summary }}</p>
 
-			<p>Country :
+			<p>{{ 'country'|trans }} :
 				{{ program.country }}</p>
 
-			<p>Year :
+			<p>{{ 'year'|trans }} :
 				{{ program.year }}</p>
 
-			<p>Catégorie :
+			<p>{{ 'category'|trans }} :
 				{{ program.category.name }}</p>
 			{% for season in seasons %}
 				<p>
-					<a href="{{ path('program_season_show', { slug: program.slug, seasonId: season.id }) }}">Saison
+					<a href="{{ path('program_season_show', { slug: program.slug, seasonId: season.id }) }}">{{ 'seasons'|trans }}
 						{{season.number}}
 						({{season.year }})</a>
 				</p>
 			{% endfor %}
 			<h3>
-				Acteurs :
+				{{ 'actors'|trans }} :
 			</h3>
 
 			{% for actor in program.actors %}
@@ -48,7 +48,7 @@
 
 			{% else %}
 
-				<p>Aucun acteur pour cette série</p>
+				<p>{{ 'not.found'|trans }}</p>
 
 			{% endfor %}
 
@@ -67,7 +67,7 @@
 
 	<a href="{{ path('program_index') }}">
 
-		Retour à la liste des programmes
+		{{ 'back'|trans }}
 
 	</a>
 

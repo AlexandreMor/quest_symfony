@@ -6,24 +6,24 @@
 {% block body %}
 	<div class="text-center">
 		<h1>{{ program.title }}
-			season
+			{{ 'season'|trans }}
 			{{season.number}}</h1>
 		<img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
-		<p>Synopsis :
+		<p>{{ 'synopsis'|trans }} :
 			{{ season.description }}</p>
-		<p>Country :
+		<p>{{ 'country'|trans }} :
 			{{program.country}}</p>
 		<p>
-			Year :
+			{{ 'year'|trans }} :
 			{{season.year}}</p>
-		<p>Catégorie :
+		<p>{{ 'category'|trans }} :
 			{{ program.category.name }}</p>
 
 		<ul>
-			Episodes :
+			{{ 'episodes'|trans }} :
 			{% for episode in episodes %}
 				<li>
-					<a href="{{ path('program_episode_show', { slugProg: program.slug, seasonId: season.id, slugEp: episode.slug }) }}">Episode
+					<a href="{{ path('program_episode_show', { slugProg: program.slug, seasonId: season.id, slugEp: episode.slug }) }}">{{ 'episode'|trans }}
 						{{episode.number}}
 						:
 						{{episode.title}}</a>

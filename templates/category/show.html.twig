@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Programs for
+{% block title %}{{ 'programs.category'|trans }}
 	{{category.name}}
 {% endblock %}
 
 
 {% block body %}
-	<h1>Programs for
+	<h1>{{ 'programs.category'|trans }}
 		{{category.name}}</h1>
 	{% for program in programs %}
 		<h2 class="mt-0">{{program.id}}.
 			{{program.title}}</h2>
 		<p>{{ program.summary }}</p>
-		<a href="{{ path("program_show", { slug: program.slug }) }}">Voir la fiche</a>
+		<a href="{{ path("program_show", { slug: program.slug }) }}">{{ 'show.program'|trans }}</a>
 	{% else %}
-		Aucune série trouvée
+		{{ 'not.found.programs'|trans }}
 	{% endfor %}
 {% endblock %}

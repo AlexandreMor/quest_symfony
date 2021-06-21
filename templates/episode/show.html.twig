@@ -1,33 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Episode
+{% block title %}{{ 'episode'|trans }}
 {% endblock %}
 
 {% block body %}
 	<div class="text-center mt-3">
-		<h1>Episode</h1>
+		<h1>{{ 'episode'|trans }}</h1>
 		<table class="table">
 			<tbody>
 				<tr>
-					<th>Id</th>
+					<th>{{ 'id'|trans }}</th>
 					<td>{{ episode.id }}</td>
 				</tr>
 				<tr>
-					<th>Title</th>
+					<th>{{ 'title'|trans }}</th>
 					<td>{{ episode.title }}</td>
 				</tr>
 				<tr>
-					<th>Number</th>
+					<th>{{ 'number'|trans }}</th>
 					<td>{{ episode.number }}</td>
 				</tr>
 				<tr>
-					<th>Synopsis</th>
+					<th>{{ 'synopsis'|trans }}</th>
 					<td>{{ episode.synopsis }}</td>
 				</tr>
 			</tbody>
 		</table>
 		{% if app.user %}
-			<h3>Add a comment</h3>
+			<h3>{{ 'add.comment'|trans }}</h3>
 			<div class="text-center mt-3">
 				{{ form_start(form) }}
 
@@ -38,18 +38,18 @@
 				{{ form_end(form) }}
 			</div>
 		{% endif %}
-		<h3 class="mt-5">Comments</h3>
+		<h3 class="mt-5">{{ 'comments'|trans }}</h3>
 		{% for comment in episode.comments %}
-			<h4 class"mt-3">Par
+			<h4 class"mt-3">{{ 'by'|trans }}
 				{{comment.author.username}}</h4>
 			<p>{{comment.comment}}</p>
 			{% if is_granted("ROLE_CONTRIBUTOR") %}
 				{{ include('comment/_delete_form.html.twig') }}
 			{% endif %}
 		{% endfor %}
-		<a class="btn border" href="{{ path('episode_index') }}">back to list</a>
+		<a class="btn border" href="{{ path('episode_index') }}">{{ 'back'|trans }}</a>
 
-		<a class="btn border" href="{{ path('episode_edit', {'slug': episode.slug}) }}">edit</a>
+		<a class="btn border" href="{{ path('episode_edit', {'slug': episode.slug}) }}">{{ 'edit'|trans }}</a>
 
 		{{ include('episode/_delete_form.html.twig') }}
 	</div>

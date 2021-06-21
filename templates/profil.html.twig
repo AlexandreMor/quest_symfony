@@ -2,9 +2,9 @@
 
 {% block body %}
 <div class="container-fluid text-center">
-<h1 class="mt-5">Mon profil</h1>
-<h3 class="mt-5">Username</h3>
+<h1 class="mt-5">{{ 'profile'|trans }}</h1>
+<h3 class="mt-5">{{ 'username'|trans }}</h3>
 <p>{{user.username}}</p>
-<h3 class="mt-5">Email</h3>
+<h3 class="mt-5">{{ 'email'|trans }}</h3>
 <p>{{user.email}}</p>
 {% endblock %}

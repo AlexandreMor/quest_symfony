@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1 class="text-center">{{ Bienvenue }}</h1>
+<h1 class="text-center">{{ 'welcome'|trans }}</h1>
 <section class="bg-secondary-color py-5">
-<h2 class="text-center">Mes séries favorites</h2></section>
+<h2 class="text-center">{{ 'fav.programs'|trans }}</h2></section>
 <section class="bg-main-color py-5">
-<h2 class="text-center">Découvrez de nouvelles séries</h2>
+<h2 class="text-center">{{ 'discover.programs'|trans }}</h2>
 <ul>
 {% for program in programs | reverse %}
 <li class="list-unstyled text-center">{{program.title}}
@@ -14,5 +14,5 @@
 </ul>
 </section>
 <section class="bg-secondary-color py-5">
-<h2 class="text-center">Retrouvez vos acteurs favoris</h2></section>
+<h2 class="text-center">{{ 'fav.actors'|trans }}</h2></section>
 {% endblock %}

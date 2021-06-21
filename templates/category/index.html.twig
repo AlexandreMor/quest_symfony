@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategoryController!
+{% block title %}{{ 'categories'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -21,7 +21,7 @@
 		{% for category in categories %}
 
 			<h2>{{category.name}}</h2>
-			<a href="{{ path("category_show", { categoryName: category.name }) }}">Voir la liste des séries pour cette catégorie</a>
+			<a href="{{ path("category_show", { categoryName: category.name }) }}">{{ 'category.list.programs'|trans }}</a>
 		{% endfor %}
 	</div>
 {% endblock %}
