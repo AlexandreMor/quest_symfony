@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Program;
 
 use App\Entity\User;
+use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends AbstractController
@@ -43,5 +44,16 @@ class DefaultController extends AbstractController
     {
         $user = $this->getUser();
         return $this->render('/profil.html.twig', ['user' => $user]);
+    }
+
+    public function navbarTop(CategoryRepository $categoryRepository): Response
+
+    {
+
+        return $this->render('layout/navbartop.html.twig', [
+
+            'categories' => $categoryRepository->findBy([], ['id' => 'DESC'])
+
+        ]);
     }
 }

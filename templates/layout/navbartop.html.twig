@@ -1,0 +1,10 @@
+<div class="dropdown">
+  <button class="btn nav-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Catégories
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+		{% for category in categories %}
+			<li><a class="dropdown-item" href="{{ path('category_show', {categoryName:category.name}) }}">{{ category.name }}</a></li>
+		{% endfor %}
+	</ul>
+</div>
