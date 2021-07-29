@@ -3,14 +3,19 @@
 namespace App\Entity;
 
 use App\Repository\ProgramRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 
 /**
  * @ORM\Entity(repositoryClass=ProgramRepository::class)
+ * @Vich\Uploadable
  * @UniqueEntity("title", message="ce titre existe déjà")
  */
 class Program
@@ -42,9 +47,21 @@ class Program
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
      * @Assert\Length(max="255", maxMessage="Le lien saisi {{ value }} est trop long, il ne devrait pas dépasser {{ limit }} caractères")
      */
     private $poster;
+
+
+    /**
+     * @Assert\File(maxSize = "10M", mimeTypes = {"image/jpeg","image/png"})
+     * @Vich\UploadableField(mapping="poster_file", fileNameProperty="poster")
+
+     * @var File
+
+     */
+
+    private $posterFile;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="programs")
@@ -95,6 +112,13 @@ class Program
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="watchlist")
      */
     private $users;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $updatedAt;
+
 
     public function __construct()
     {
@@ -284,6 +308,37 @@ class Program
         if ($this->users->removeElement($user)) {
             $user->removeFromWatchlist($this);
         }
+
+        return $this;
+    }
+
+    public function setPosterFile(File $image = null)
+
+    {
+
+        $this->posterFile = $image;
+
+        if ($image !== null) {
+
+            $this->updatedAt = new DateTime('now');
+        }
+    }
+
+    public function getPosterFile(): ?File
+
+    {
+
+        return $this->posterFile;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
